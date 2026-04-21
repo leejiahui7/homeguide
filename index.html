@@ -7,295 +7,151 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --cream: #faf8f4;
-      --white: #ffffff;
-      --sand: #f0ece3;
-      --warm-dark: #2b2520;
-      --mid: #6b5f55;
-      --light: #a89a8e;
-      --accent: #c0845a;
-      --accent-light: #f5e6d8;
-      --green: #5a7a5c;
-      --green-light: #e8f0e8;
-      --red: #b85c5c;
-      --red-light: #f5e8e8;
-      --border: #e4ddd5;
-      --shadow: 0 2px 12px rgba(43,37,32,0.07);
+      --cream: #faf8f4; --white: #ffffff; --sand: #f0ece3;
+      --warm-dark: #2b2520; --mid: #6b5f55; --light: #a89a8e;
+      --accent: #c0845a; --accent-light: #f5e6d8;
+      --green: #5a7a5c; --green-light: #e8f0e8;
+      --red: #b85c5c; --red-light: #f5e8e8;
+      --border: #e4ddd5; --shadow: 0 2px 12px rgba(43,37,32,0.07);
     }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
-      color: var(--warm-dark);
-      min-height: 100vh;
-    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--warm-dark); min-height: 100vh; }
 
     /* HEADER */
-    header {
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      padding: 28px 20px 20px;
-      text-align: center;
-    }
-
+    header { background: var(--white); border-bottom: 1px solid var(--border); padding: 28px 20px 20px; text-align: center; }
     header .emoji { font-size: 2.4rem; display: block; margin-bottom: 8px; }
+    header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(1.6rem, 5vw, 2.2rem); color: var(--warm-dark); letter-spacing: -0.02em; }
+    header p { font-size: 0.92rem; color: var(--light); margin-top: 4px; font-style: italic; }
 
-    header h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.6rem, 5vw, 2.2rem);
-      color: var(--warm-dark);
-      letter-spacing: -0.02em;
-    }
-
-    header p {
-      font-size: 0.92rem;
-      color: var(--light);
-      margin-top: 4px;
-      font-style: italic;
-    }
-
-    /* TABS */
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      padding: 16px 16px 0;
-      background: var(--white);
-      flex-wrap: wrap;
-    }
-
-    nav button {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 500;
-      padding: 9px 18px;
-      border: 1.5px solid var(--border);
-      border-bottom: none;
-      border-radius: 8px 8px 0 0;
-      background: var(--sand);
-      color: var(--mid);
-      cursor: pointer;
-      transition: all 0.18s ease;
-    }
-
-    nav button.active {
-      background: var(--white);
-      color: var(--accent);
-      border-color: var(--border);
-      border-bottom: 2px solid var(--white);
-      margin-bottom: -1px;
-    }
-
+    /* NAV */
+    nav { display: flex; justify-content: center; gap: 8px; padding: 16px 16px 0; background: var(--white); flex-wrap: wrap; }
+    nav button { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 500; padding: 9px 18px; border: 1.5px solid var(--border); border-bottom: none; border-radius: 8px 8px 0 0; background: var(--sand); color: var(--mid); cursor: pointer; transition: all 0.18s ease; }
+    nav button.active { background: var(--white); color: var(--accent); border-color: var(--border); border-bottom: 2px solid var(--white); margin-bottom: -1px; }
     nav button:hover:not(.active) { background: var(--accent-light); color: var(--accent); }
 
-    /* MAIN */
-    main {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 28px 16px 60px;
-    }
-
-    /* SECTION PANELS */
+    main { max-width: 760px; margin: 0 auto; padding: 28px 16px 60px; }
     .panel { display: none; }
     .panel.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin-bottom: 16px; box-shadow: var(--shadow); }
+    .card-title { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--warm-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
 
-    /* CARDS */
-    .card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 16px;
-      box-shadow: var(--shadow);
-    }
-
-    .card-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
-      color: var(--warm-dark);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* RULE ROWS */
-    .rule {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 11px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
+    .rule { display: flex; align-items: flex-start; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); }
     .rule:last-child { border-bottom: none; }
-
-    .rule-icon {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
+    .rule-icon { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
     .rule-icon.yes { background: var(--green-light); color: var(--green); }
-    .rule-icon.no { background: var(--red-light); color: var(--red); }
-
+    .rule-icon.no  { background: var(--red-light);   color: var(--red);   }
     .rule-text p { font-size: 0.9rem; line-height: 1.5; color: var(--warm-dark); font-weight: 500; }
     .rule-text span { font-size: 0.82rem; color: var(--mid); font-style: italic; }
 
-    /* NOTICE BANNER */
-    .notice {
-      background: var(--accent-light);
-      border: 1px solid #e8c4a0;
-      border-radius: 12px;
-      padding: 16px 18px;
-      margin-bottom: 18px;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
+    .notice { background: var(--accent-light); border: 1px solid #e8c4a0; border-radius: 12px; padding: 16px 18px; margin-bottom: 18px; display: flex; gap: 12px; align-items: flex-start; }
     .notice .notice-emoji { font-size: 1.4rem; flex-shrink: 0; }
     .notice p { font-size: 0.88rem; line-height: 1.55; color: var(--warm-dark); }
     .notice p strong { font-weight: 600; }
     .notice p em { color: var(--mid); font-style: italic; }
 
-    /* COLLAPSIBLE */
     details { margin-bottom: 12px; }
-
-    details summary {
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 18px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.92rem;
-      color: var(--warm-dark);
-      box-shadow: var(--shadow);
-      transition: background 0.15s;
-    }
-
+    details summary { list-style: none; display: flex; justify-content: space-between; align-items: center; background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; cursor: pointer; font-weight: 600; font-size: 0.92rem; color: var(--warm-dark); box-shadow: var(--shadow); transition: background 0.15s; }
     details summary:hover { background: var(--sand); }
     details summary::after { content: '▼'; font-size: 0.7rem; color: var(--light); transition: transform 0.2s; }
     details[open] summary::after { transform: rotate(180deg); }
     details[open] summary { border-radius: 10px 10px 0 0; border-bottom: 1px solid var(--border); }
-
-    details .details-body {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-top: none;
-      border-radius: 0 0 10px 10px;
-      padding: 6px 0;
-    }
-
+    details .details-body { background: var(--white); border: 1px solid var(--border); border-top: none; border-radius: 0 0 10px 10px; padding: 6px 0; }
     details .summary-sub { font-size: 0.78rem; color: var(--mid); font-weight: 400; font-style: italic; }
 
-    /* MEAL GRID */
-    .meal-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 12px;
-      margin-top: 4px;
-    }
+    .section-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--light); margin: 24px 0 10px; }
 
-    .meal-card {
-      background: var(--sand);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-    }
-
-    .meal-card .meal-name { font-weight: 600; font-size: 0.9rem; color: var(--warm-dark); margin-bottom: 4px; }
-    .meal-card .meal-malay { font-size: 0.8rem; color: var(--mid); font-style: italic; margin-bottom: 8px; }
-    .meal-card .meal-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-
-    .tag {
-      font-size: 0.72rem;
-      padding: 2px 8px;
-      border-radius: 20px;
-      font-weight: 500;
-    }
-
-    .tag.easy { background: var(--green-light); color: var(--green); }
-    .tag.healthy { background: #e8f0f5; color: #4a7a8a; }
-    .tag.quick { background: #f5f0e8; color: #8a7a4a; }
-    .tag.allergy { background: var(--red-light); color: var(--red); }
-
-    /* TIMETABLE */
-    .timetable {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-    }
-
-    .timetable th {
-      background: var(--sand);
-      color: var(--mid);
-      font-weight: 600;
-      text-align: left;
-      padding: 10px 14px;
-      border-bottom: 2px solid var(--border);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .timetable td {
-      padding: 11px 14px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-      color: var(--warm-dark);
-    }
-
-    .timetable tr:last-child td { border-bottom: none; }
-    .timetable tr:hover td { background: var(--sand); }
-
-    .timetable .time-col {
-      font-weight: 600;
-      color: var(--accent);
-      white-space: nowrap;
-      width: 110px;
-    }
-
-    .timetable .task-malay { display: block; font-size: 0.78rem; color: var(--mid); font-style: italic; margin-top: 2px; }
-
-    /* SECTION LABEL */
-    .section-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--light);
-      margin: 24px 0 10px;
-    }
-
-    /* FOOTER BANNER */
-    .footer-card {
-      background: var(--accent);
-      color: white;
-      border-radius: 14px;
-      padding: 22px;
-      text-align: center;
-      margin-top: 28px;
-    }
-
+    .footer-card { background: var(--accent); color: white; border-radius: 14px; padding: 22px; text-align: center; margin-top: 28px; }
     .footer-card p { font-size: 0.9rem; line-height: 1.6; }
     .footer-card em { opacity: 0.85; font-style: italic; }
+
+    /* ── TIMETABLE ── */
+    .timetable { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .timetable th { background: var(--sand); color: var(--mid); font-weight: 600; text-align: left; padding: 10px 14px; border-bottom: 2px solid var(--border); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .timetable td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; color: var(--warm-dark); }
+    .timetable tr:last-child td { border-bottom: none; }
+    .time-col { font-weight: 600; color: var(--accent); white-space: nowrap; width: 100px; }
+    .task-malay { display: block; font-size: 0.78rem; color: var(--mid); font-style: italic; margin-top: 2px; }
+
+    /* TICK ROW */
+    .tick-row { cursor: pointer; transition: background 0.12s; }
+    .tick-row:hover td { background: var(--sand); }
+    .tick-row.done td { opacity: 0.42; }
+    .tick-row.done .task-en { text-decoration: line-through; }
+    .tick-cell { width: 38px !important; text-align: center; }
+    .tick-box { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--border); display: inline-flex; align-items: center; justify-content: center; background: var(--white); transition: all 0.15s; }
+    .tick-row.done .tick-box { background: var(--green); border-color: var(--green); }
+    .tick-row.done .tick-box::after { content: '✓'; color: white; font-size: 0.72rem; font-weight: 700; }
+
+    .task-row-inner { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
+    .task-row-text  { flex: 1; }
+    .edit-row-btn { opacity: 0; background: none; border: none; cursor: pointer; font-size: 0.78rem; padding: 2px 6px; border-radius: 4px; color: var(--light); transition: all 0.15s; flex-shrink: 0; margin-top: 2px; }
+    .tick-row:hover .edit-row-btn { opacity: 1; }
+    .edit-row-btn:hover { color: var(--accent); background: var(--accent-light); }
+
+    /* PROGRESS */
+    .progress-wrap { margin-bottom: 14px; }
+    .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .progress-text { font-size: 0.8rem; color: var(--mid); }
+    .reset-btn { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; padding: 4px 12px; border: 1.5px solid var(--border); border-radius: 6px; background: var(--white); color: var(--mid); cursor: pointer; transition: all 0.15s; }
+    .reset-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .progress-bar-bg { background: var(--sand); border-radius: 99px; height: 8px; overflow: hidden; }
+    .progress-bar-fill { background: var(--green); height: 100%; border-radius: 99px; transition: width 0.35s ease; width: 0%; }
+
+    /* DEEP CLEAN TABLE */
+    .dctable { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .dctable th { background: var(--sand); color: var(--mid); font-weight: 600; text-align: left; padding: 10px 14px; border-bottom: 2px solid var(--border); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .dctable td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--warm-dark); }
+    .dctable tr:last-child td { border-bottom: none; }
+
+    /* ── MEAL GRID ── */
+    .meal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; margin-top: 4px; }
+    .meal-card { background: var(--sand); border: 1px solid var(--border); border-radius: 10px; padding: 14px; position: relative; }
+    .meal-card .meal-name  { font-weight: 600; font-size: 0.9rem; color: var(--warm-dark); margin-bottom: 4px; padding-right: 40px; }
+    .meal-card .meal-indo  { font-size: 0.8rem; color: var(--mid); font-style: italic; margin-bottom: 8px; }
+    .meal-card .meal-tags  { display: flex; flex-wrap: wrap; gap: 5px; }
+    .meal-card .card-acts  { position: absolute; top: 8px; right: 8px; display: flex; gap: 3px; opacity: 0; transition: opacity 0.15s; }
+    .meal-card:hover .card-acts { opacity: 1; }
+
+    .tag { font-size: 0.72rem; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
+    .tag.easy    { background: var(--green-light); color: var(--green); }
+    .tag.healthy { background: #e8f0f5; color: #4a7a8a; }
+    .tag.quick   { background: #f5f0e8; color: #8a7a4a; }
+
+    /* ADD CARD */
+    .add-card { background: var(--white); border: 2px dashed var(--border); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; min-height: 100px; transition: all 0.18s; color: var(--light); text-align: center; }
+    .add-card:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+    .add-card .plus { font-size: 1.8rem; line-height: 1; }
+    .add-card span { font-size: 0.82rem; font-weight: 500; }
+    .add-card em { font-size: 0.78rem; font-weight: 400; font-style: italic; display: block; }
+
+    /* ICON BTNS */
+    .ibtn { background: none; border: none; cursor: pointer; padding: 3px 5px; border-radius: 4px; font-size: 0.8rem; transition: background 0.15s; }
+    .ibtn.e { color: var(--mid); }
+    .ibtn.e:hover { background: var(--accent-light); color: var(--accent); }
+    .ibtn.d { color: var(--light); }
+    .ibtn.d:hover { background: var(--red-light); color: var(--red); }
+
+    /* ── MODAL ── */
+    .overlay { position: fixed; inset: 0; background: rgba(43,37,32,0.45); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .overlay.open { opacity: 1; pointer-events: all; }
+    .modal { background: var(--white); border-radius: 16px; padding: 28px; width: 100%; max-width: 420px; box-shadow: 0 8px 40px rgba(43,37,32,0.18); transform: translateY(14px); transition: transform 0.2s; }
+    .overlay.open .modal { transform: translateY(0); }
+    .modal h3 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; margin-bottom: 18px; color: var(--warm-dark); }
+    .modal label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--mid); margin-bottom: 4px; margin-top: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .modal input, .modal select { width: 100%; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--cream); color: var(--warm-dark); outline: none; transition: border-color 0.15s; }
+    .modal input:focus, .modal select:focus { border-color: var(--accent); }
+    .tag-picker { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .ttog { font-size: 0.78rem; padding: 4px 12px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--white); cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; color: var(--mid); transition: all 0.15s; }
+    .ttog.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+    .modal-foot { display: flex; gap: 10px; margin-top: 22px; justify-content: flex-end; align-items: center; }
+    .btn-cancel { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 500; padding: 9px 18px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--white); color: var(--mid); cursor: pointer; transition: all 0.15s; }
+    .btn-cancel:hover { background: var(--sand); }
+    .btn-save { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 600; padding: 9px 20px; border: none; border-radius: 8px; background: var(--accent); color: white; cursor: pointer; opacity: 1; transition: opacity 0.15s; }
+    .btn-save:hover { opacity: 0.87; }
+    .btn-del { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; padding: 8px 14px; border: 1.5px solid var(--red-light); border-radius: 8px; background: var(--white); color: var(--red); cursor: pointer; margin-right: auto; transition: all 0.15s; }
+    .btn-del:hover { background: var(--red-light); }
   </style>
 </head>
 <body>
@@ -307,316 +163,113 @@
 </header>
 
 <nav>
-  <button class="active" onclick="showTab('rules')">📜 House Rules</button>
-  <button onclick="showTab('meals')">🍳 Recipes</button>
-  <button onclick="showTab('timetable')">📅 Timetable</button>
+  <button class="active" onclick="showTab('rules',this)">📜 House Rules</button>
+  <button onclick="showTab('meals',this)">🍳 Recipes</button>
+  <button onclick="showTab('timetable',this)">📅 Timetable</button>
 </nav>
 
 <main>
 
-  <!-- ===== HOUSE RULES ===== -->
+  <!-- HOUSE RULES -->
   <div class="panel active" id="tab-rules">
-
     <div class="notice">
       <span class="notice-emoji">🤝</span>
       <p><strong>We hope to build a good and respectful working relationship together.</strong><br/>
       <em>Kami berharap dapat membangun hubungan kerja yang baik dan saling menghormati bersama.</em></p>
     </div>
-
     <details open>
-      <summary>
-        <span>🗣️ Honesty &amp; Communication <span class="summary-sub">· Kejujuran &amp; Komunikasi</span></span>
-      </summary>
+      <summary><span>🗣️ Honesty &amp; Communication <span class="summary-sub">· Kejujuran &amp; Komunikasi</span></span></summary>
       <div class="details-body">
-        <div class="rule">
-          <div class="rule-icon yes">✓</div>
-          <div class="rule-text"><p>If you are unsure about anything, please always ask.</p><span>Jika tidak yakin tentang sesuatu, silakan selalu bertanya.</span></div>
-        </div>
-        <div class="rule">
-          <div class="rule-icon yes">✓</div>
-          <div class="rule-text"><p>Tell us <strong>immediately</strong> if anything is broken or damaged.</p><span>Beritahu kami segera jika ada sesuatu yang rusak atau pecah.</span></div>
-        </div>
-        <div class="rule">
-          <div class="rule-icon no">✕</div>
-          <div class="rule-text"><p><strong>No</strong> lying, stealing, or borrowing money without permission.</p><span>Dilarang berbohong, mencuri, atau meminjam uang tanpa izin.</span></div>
-        </div>
-        <div class="rule">
-          <div class="rule-icon no">✕</div>
-          <div class="rule-text"><p>Do <strong>not</strong> use Sir / Ma'am's belongings without permission.</p><span>Jangan gunakan barang-barang Sir / Ma'am tanpa izin.</span></div>
-        </div>
-        <div class="rule">
-          <div class="rule-icon yes">✓</div>
-          <div class="rule-text"><p>If you feel <strong>unwell</strong>, please tell us immediately.</p><span>Jika merasa tidak sehat, segera beritahu kami.</span></div>
-        </div>
+        <div class="rule"><div class="rule-icon yes">✓</div><div class="rule-text"><p>If you are unsure about anything, please always ask.</p><span>Jika tidak yakin tentang sesuatu, silakan selalu bertanya.</span></div></div>
+        <div class="rule"><div class="rule-icon yes">✓</div><div class="rule-text"><p>Tell us <strong>immediately</strong> if anything is broken or damaged.</p><span>Beritahu kami segera jika ada sesuatu yang rusak atau pecah.</span></div></div>
+        <div class="rule"><div class="rule-icon no">✕</div><div class="rule-text"><p><strong>No</strong> lying, stealing, or borrowing money without permission.</p><span>Dilarang berbohong, mencuri, atau meminjam uang tanpa izin.</span></div></div>
+        <div class="rule"><div class="rule-icon no">✕</div><div class="rule-text"><p>Do <strong>not</strong> use Sir / Ma'am's belongings without permission.</p><span>Jangan gunakan barang-barang Sir / Ma'am tanpa izin.</span></div></div>
+        <div class="rule"><div class="rule-icon yes">✓</div><div class="rule-text"><p>If you feel <strong>unwell</strong>, please tell us immediately.</p><span>Jika merasa tidak sehat, segera beritahu kami.</span></div></div>
       </div>
     </details>
-
     <details>
-      <summary>
-        <span>🚪 Movement &amp; Visitors <span class="summary-sub">· Pergerakan &amp; Tamu</span></span>
-      </summary>
+      <summary><span>🚪 Movement &amp; Visitors <span class="summary-sub">· Pergerakan &amp; Tamu</span></span></summary>
       <div class="details-body">
-        <div class="rule">
-          <div class="rule-icon no">✕</div>
-          <div class="rule-text"><p>Do <strong>not</strong> leave the house without permission. Inform us before going out.</p><span>Jangan keluar rumah tanpa izin. Beritahu kami sebelum keluar.</span></div>
-        </div>
-        <div class="rule">
-          <div class="rule-icon no">✕</div>
-          <div class="rule-text"><p><strong>No visitors</strong> are allowed at the house.</p><span>Tidak ada tamu yang diizinkan masuk ke rumah.</span></div>
-        </div>
-        <div class="rule">
-          <div class="rule-icon yes">✓</div>
-          <div class="rule-text"><p>Follow all <strong>work permit rules</strong> at all times.</p><span>Patuhi semua peraturan izin kerja setiap saat.</span></div>
-        </div>
+        <div class="rule"><div class="rule-icon no">✕</div><div class="rule-text"><p>Do <strong>not</strong> leave the house without permission. Inform us before going out.</p><span>Jangan keluar rumah tanpa izin. Beritahu kami sebelum keluar.</span></div></div>
+        <div class="rule"><div class="rule-icon no">✕</div><div class="rule-text"><p><strong>No visitors</strong> are allowed at the house.</p><span>Tidak ada tamu yang diizinkan masuk ke rumah.</span></div></div>
+        <div class="rule"><div class="rule-icon yes">✓</div><div class="rule-text"><p>Follow all <strong>work permit rules</strong> at all times.</p><span>Patuhi semua peraturan izin kerja setiap saat.</span></div></div>
       </div>
     </details>
-
     <details>
-      <summary>
-        <span>📱 Phone &amp; Privacy <span class="summary-sub">· Telepon &amp; Privasi</span></span>
-      </summary>
+      <summary><span>📱 Phone &amp; Privacy <span class="summary-sub">· Telepon &amp; Privasi</span></span></summary>
       <div class="details-body">
-        <div class="rule">
-          <div class="rule-icon yes">✓</div>
-          <div class="rule-text"><p>Use your personal phone during <strong>rest time only</strong> (except emergencies).</p><span>Gunakan telepon pribadi hanya saat waktu istirahat (kecuali darurat).</span></div>
-        </div>
-        <div class="rule">
-          <div class="rule-icon no">✕</div>
-          <div class="rule-text"><p>Do <strong>not</strong> share our home address with anyone.</p><span>Jangan bagikan alamat rumah kami kepada siapa pun.</span></div>
-        </div>
-        <div class="rule">
-          <div class="rule-icon no">✕</div>
-          <div class="rule-text"><p>Do <strong>not</strong> post photos or videos of our home or family on social media.</p><span>Jangan posting foto atau video rumah atau keluarga kami di media sosial.</span></div>
-        </div>
-        <div class="rule">
-          <div class="rule-icon yes">✓</div>
-          <div class="rule-text"><p>Family <strong>privacy and safety</strong> is the most important.</p><span>Privasi dan keselamatan keluarga adalah yang paling utama.</span></div>
-        </div>
+        <div class="rule"><div class="rule-icon yes">✓</div><div class="rule-text"><p>Use your personal phone during <strong>rest time only</strong> (except emergencies).</p><span>Gunakan telepon pribadi hanya saat waktu istirahat (kecuali darurat).</span></div></div>
+        <div class="rule"><div class="rule-icon no">✕</div><div class="rule-text"><p>Do <strong>not</strong> share our home address with anyone.</p><span>Jangan bagikan alamat rumah kami kepada siapa pun.</span></div></div>
+        <div class="rule"><div class="rule-icon no">✕</div><div class="rule-text"><p>Do <strong>not</strong> post photos or videos of our home or family on social media.</p><span>Jangan posting foto atau video rumah atau keluarga kami di media sosial.</span></div></div>
+        <div class="rule"><div class="rule-icon yes">✓</div><div class="rule-text"><p>Family <strong>privacy and safety</strong> is the most important.</p><span>Privasi dan keselamatan keluarga adalah yang paling utama.</span></div></div>
       </div>
     </details>
-
     <details>
-      <summary>
-        <span>🧼 Hygiene <span class="summary-sub">· Kebersihan Diri</span></span>
-      </summary>
+      <summary><span>🧼 Hygiene <span class="summary-sub">· Kebersihan Diri</span></span></summary>
       <div class="details-body">
-        <div class="rule">
-          <div class="rule-icon yes">✓</div>
-          <div class="rule-text"><p>Always <strong>wash your hands with soap</strong> before handling food.</p><span>Selalu cuci tangan dengan sabun sebelum menangani makanan.</span></div>
-        </div>
-        <div class="rule">
-          <div class="rule-icon yes">✓</div>
-          <div class="rule-text"><p>Bathe and brush your teeth in the <strong>morning and at night</strong>.</p><span>Mandi dan sikat gigi di pagi dan malam hari.</span></div>
-        </div>
-        <div class="rule">
-          <div class="rule-icon yes">✓</div>
-          <div class="rule-text"><p>Keep your <strong>nails short</strong> and <strong>tie your hair</strong> when working.</p><span>Jaga kuku tetap pendek dan ikat rambut saat bekerja.</span></div>
-        </div>
-        <div class="rule">
-          <div class="rule-icon yes">✓</div>
-          <div class="rule-text"><p>When you return from outside, <strong>wash your hands and feet</strong> first.</p><span>Saat pulang dari luar, cuci tangan dan kaki terlebih dahulu.</span></div>
-        </div>
+        <div class="rule"><div class="rule-icon yes">✓</div><div class="rule-text"><p>Always <strong>wash your hands with soap</strong> before handling food.</p><span>Selalu cuci tangan dengan sabun sebelum menangani makanan.</span></div></div>
+        <div class="rule"><div class="rule-icon yes">✓</div><div class="rule-text"><p>Bathe and brush your teeth in the <strong>morning and at night</strong>.</p><span>Mandi dan sikat gigi di pagi dan malam hari.</span></div></div>
+        <div class="rule"><div class="rule-icon yes">✓</div><div class="rule-text"><p>Keep your <strong>nails short</strong> and <strong>tie your hair</strong> when working.</p><span>Jaga kuku tetap pendek dan ikat rambut saat bekerja.</span></div></div>
+        <div class="rule"><div class="rule-icon yes">✓</div><div class="rule-text"><p>When you return from outside, <strong>wash your hands and feet</strong> first.</p><span>Saat pulang dari luar, cuci tangan dan kaki terlebih dahulu.</span></div></div>
       </div>
     </details>
-
     <div class="footer-card">
       <p>💛 <strong>If you follow these rules well, we will take good care of you too.</strong><br/>
       <em>Jika kamu mengikuti peraturan ini dengan baik, kami pun akan menjaga kamu dengan baik.</em></p>
     </div>
   </div>
 
-  <!-- ===== RECIPES ===== -->
+  <!-- RECIPES -->
   <div class="panel" id="tab-meals">
-
     <div class="notice">
       <span class="notice-emoji">⚠️</span>
-      <p><strong>Important: Nut Allergy in the household. Do NOT use any nuts, nut oils, or nut-based sauces (e.g. peanut sauce, satay sauce).</strong><br/>
-      <em>Penting: Ada alergi kacang dalam keluarga. JANGAN gunakan kacang apa pun, minyak kacang, atau saus berbahan kacang (mis. saus kacang, saus satay).</em></p>
+      <p><strong>Important: Nut Allergy in the household. Do NOT use any nuts, nut oils, or nut-based sauces.</strong><br/>
+      <em>Penting: Ada alergi kacang dalam keluarga. JANGAN gunakan kacang apa pun, minyak kacang, atau saus berbahan kacang.</em></p>
     </div>
-
-    <div class="notice" style="background: var(--green-light); border-color: #b8d4b8;">
+    <div class="notice" style="background:var(--green-light);border-color:#b8d4b8;">
       <span class="notice-emoji">🥗</span>
       <p><strong>General preference: Light, healthy, not too oily or spicy. Full dinner = 1 Meat/Fish + 1 Vegetable + 1 Soup.</strong><br/>
       <em>Preferensi umum: Ringan, sehat, tidak terlalu berminyak atau pedas. Makan malam lengkap = 1 Daging/Ikan + 1 Sayuran + 1 Sup.</em></p>
     </div>
-
     <p class="section-label">🌅 Breakfast Ideas · Ide Sarapan</p>
-    <div class="meal-grid">
-      <div class="meal-card">
-        <div class="meal-name">Jam &amp; Bread</div>
-        <div class="meal-malay">Roti dengan Selai</div>
-        <div class="meal-tags"><span class="tag easy">Easy</span><span class="tag quick">Quick</span></div>
-      </div>
-      <div class="meal-card">
-        <div class="meal-name">Yoghurt with Fruit</div>
-        <div class="meal-malay">Yogurt dengan Buah</div>
-        <div class="meal-tags"><span class="tag easy">Easy</span><span class="tag healthy">Healthy</span></div>
-      </div>
-      <div class="meal-card">
-        <div class="meal-name">Soft-Boiled Eggs &amp; Toast</div>
-        <div class="meal-malay">Telur Setengah Matang &amp; Roti</div>
-        <div class="meal-tags"><span class="tag easy">Easy</span><span class="tag quick">Quick</span></div>
-      </div>
-      <div class="meal-card">
-        <div class="meal-name">Sausage &amp; Fried Eggs</div>
-        <div class="meal-malay">Sosis &amp; Telur Goreng</div>
-        <div class="meal-tags"><span class="tag easy">Easy</span><span class="tag quick">Quick</span></div>
-      </div>
-    </div>
-
+    <div class="meal-grid" id="grid-breakfast"></div>
     <p class="section-label">☀️ Lunch Ideas · Ide Makan Siang</p>
-    <div class="meal-grid">
-      <div class="meal-card">
-        <div class="meal-name">Chicken Rice (Steamed)</div>
-        <div class="meal-malay">Nasi Ayam (Kukus)</div>
-        <div class="meal-tags"><span class="tag healthy">Healthy</span><span class="tag easy">Easy</span></div>
-      </div>
-      <div class="meal-card">
-        <div class="meal-name">Fried Rice with Vegetables</div>
-        <div class="meal-malay">Nasi Goreng dengan Sayuran</div>
-        <div class="meal-tags"><span class="tag easy">Easy</span><span class="tag quick">Quick</span></div>
-      </div>
-      <div class="meal-card">
-        <div class="meal-name">Bee Hoon Soup</div>
-        <div class="meal-malay">Sup Bihun</div>
-        <div class="meal-tags"><span class="tag healthy">Healthy</span><span class="tag easy">Easy</span></div>
-      </div>
-      <div class="meal-card">
-        <div class="meal-name">Pan-Fried Fish with Rice</div>
-        <div class="meal-malay">Ikan Goreng dengan Nasi</div>
-        <div class="meal-tags"><span class="tag healthy">Healthy</span></div>
-      </div>
-    </div>
-
+    <div class="meal-grid" id="grid-lunch"></div>
     <p class="section-label">🌙 Dinner Ideas · Ide Makan Malam</p>
-    <div class="meal-grid">
-      <div class="meal-card">
-        <div class="meal-name">Steamed Fish + Stir-fry Veg + Tofu Soup</div>
-        <div class="meal-malay">Ikan Kukus + Sayur Tumis + Sup Tahu</div>
-        <div class="meal-tags"><span class="tag healthy">Healthy</span></div>
-      </div>
-      <div class="meal-card">
-        <div class="meal-name">Chicken Stew + Broccoli + Clear Soup</div>
-        <div class="meal-malay">Semur Ayam + Brokoli + Sup Bening</div>
-        <div class="meal-tags"><span class="tag healthy">Healthy</span><span class="tag easy">Easy</span></div>
-      </div>
-      <div class="meal-card">
-        <div class="meal-name">Pasta + Broccoli + Beef / Mushroom</div>
-        <div class="meal-malay">Pasta + Brokoli + Daging Sapi / Jamur</div>
-        <div class="meal-tags"><span class="tag easy">Easy</span><span class="tag healthy">Healthy</span></div>
-      </div>
-      <div class="meal-card">
-        <div class="meal-name">Baked Salmon + Vegetables + Miso Soup</div>
-        <div class="meal-malay">Salmon Panggang + Sayuran + Sup Miso</div>
-        <div class="meal-tags"><span class="tag healthy">Healthy</span></div>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top: 20px;">
+    <div class="meal-grid" id="grid-dinner"></div>
+    <div class="card" style="margin-top:20px;">
       <div class="card-title">🍊 Remember · Ingat</div>
-      <div class="rule">
-        <div class="rule-icon yes">✓</div>
-        <div class="rule-text"><p>Cut fruits after dinner every night.</p><span>Potong buah setelah makan malam setiap malam.</span></div>
-      </div>
-      <div class="rule">
-        <div class="rule-icon no">✕</div>
-        <div class="rule-text"><p><strong>No nuts or nut-based ingredients</strong> in any meal.</p><span>Tidak ada kacang atau bahan berbahan kacang dalam makanan apa pun.</span></div>
-      </div>
-      <div class="rule">
-        <div class="rule-icon yes">✓</div>
-        <div class="rule-text"><p>Keep food light — not too oily or spicy.</p><span>Buat masakan yang ringan — tidak terlalu berminyak atau pedas.</span></div>
-      </div>
+      <div class="rule"><div class="rule-icon yes">✓</div><div class="rule-text"><p>Cut fruits after dinner every night.</p><span>Potong buah setelah makan malam setiap malam.</span></div></div>
+      <div class="rule"><div class="rule-icon no">✕</div><div class="rule-text"><p><strong>No nuts or nut-based ingredients</strong> in any meal.</p><span>Tidak ada kacang atau bahan berbahan kacang dalam makanan apa pun.</span></div></div>
+      <div class="rule"><div class="rule-icon yes">✓</div><div class="rule-text"><p>Keep food light — not too oily or spicy.</p><span>Buat masakan yang ringan — tidak terlalu berminyak atau pedas.</span></div></div>
     </div>
   </div>
 
-  <!-- ===== TIMETABLE ===== -->
+  <!-- TIMETABLE -->
   <div class="panel" id="tab-timetable">
-
     <div class="notice">
       <span class="notice-emoji">📋</span>
-      <p><strong>This is a general daily schedule. Sir / Ma'am will update you if anything changes on the day.</strong><br/>
-      <em>Ini adalah jadwal harian umum. Sir / Ma'am akan memberi tahu kamu jika ada perubahan pada hari tersebut.</em></p>
+      <p><strong>Tap any task to mark it done. Ticks reset automatically each new day.</strong><br/>
+      <em>Ketuk tugas untuk menandainya selesai. Tanda centang direset otomatis setiap hari baru.</em></p>
     </div>
-
+    <div class="progress-wrap">
+      <div class="progress-top">
+        <span class="progress-text" id="prog-text">0 / 15 tasks done today</span>
+        <button class="reset-btn" onclick="resetTicks()">↺ Reset all</button>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-fill"></div></div>
+    </div>
     <p class="section-label">📅 Weekday Schedule (Mon–Fri) · Jadwal Hari Kerja</p>
-    <div class="card" style="padding: 0; overflow: hidden;">
+    <div class="card" style="padding:0;overflow:hidden;">
       <table class="timetable">
-        <thead>
-          <tr>
-            <th>Time · Waktu</th>
-            <th>Task · Tugas</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="time-col">6:00 AM</td>
-            <td>Wake up, freshen up.<span class="task-malay">Bangun, bersiap diri.</span></td>
-          </tr>
-          <tr>
-            <td class="time-col">6:30 AM</td>
-            <td>Prepare breakfast for the family.<span class="task-malay">Siapkan sarapan untuk keluarga.</span></td>
-          </tr>
-          <tr>
-            <td class="time-col">7:30 AM</td>
-            <td>Wash dishes, clean kitchen, wipe counters.<span class="task-malay">Cuci piring, bersihkan dapur, lap meja dapur.</span></td>
-          </tr>
-          <tr>
-            <td class="time-col">8:00 AM</td>
-            <td>Do laundry (wash &amp; hang clothes).<span class="task-malay">Cuci pakaian &amp; jemur.</span></td>
-          </tr>
-          <tr>
-            <td class="time-col">9:00 AM</td>
-            <td>Sweep and mop all floors.<span class="task-malay">Sapu dan pel semua lantai.</span></td>
-          </tr>
-          <tr>
-            <td class="time-col">10:00 AM</td>
-            <td>Wipe surfaces, tidy common areas.<span class="task-malay">Lap permukaan, rapikan area umum.</span></td>
-          </tr>
-          <tr>
-            <td class="time-col">12:00 PM</td>
-            <td>Prepare own lunch.<span class="task-malay">Siapkan makan siangmu.</span></td>
-          </tr>
-          <tr>
-            <td class="time-col">1:00 PM</td>
-            <td>Wash up, rest break.<span class="task-malay">Cuci piring, istirahat.</span></td>
-          </tr>
-          <tr>
-            <td class="time-col">2:30 PM</td>
-            <td>Ironing clothes, fold and keep laundry.<span class="task-malay">Setrika baju, lipat dan simpan pakaian.</span></td>
-          </tr>
-          <tr>
-            <td class="time-col">5:30 PM</td>
-            <td>Prepare and cook dinner.<span class="task-malay">Siapkan dan masak makan malam.</span></td>
-          </tr>
-          <tr>
-            <td class="time-col">7:00 PM</td>
-            <td>Serve dinner, cut fruits after meal.<span class="task-malay">Hidangkan makan malam, potong buah setelah makan.</span></td>
-          </tr>
-          <tr>
-            <td class="time-col">8:00 PM</td>
-            <td>Wash dishes, clean kitchen, wipe stove.<span class="task-malay">Cuci piring, bersihkan dapur, lap kompor.</span></td>
-          </tr>
-          <tr>
-            <td class="time-col">9:00 PM</td>
-            <td>Personal time / rest.<span class="task-malay">Waktu pribadi / istirahat.</span></td>
-          </tr>
-          <tr>
-            <td class="time-col">9:30 PM</td>
-            <td>Lights out.<span class="task-malay">Tidur.</span></td>
-          </tr>
-        </tbody>
+        <thead><tr><th class="tick-cell"></th><th>Time · Waktu</th><th>Task · Tugas</th></tr></thead>
+        <tbody id="sched-body"></tbody>
       </table>
     </div>
-
     <p class="section-label">🛁 Weekly Deep-Clean · Kebersihan Mingguan</p>
-    <div class="card" style="padding: 0; overflow: hidden;">
-      <table class="timetable">
-        <thead>
-          <tr>
-            <th>Day · Hari</th>
-            <th>Extra Task · Tugas Tambahan</th>
-          </tr>
-        </thead>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <table class="dctable">
+        <thead><tr><th>Day · Hari</th><th>Extra Task · Tugas Tambahan</th></tr></thead>
         <tbody>
           <tr><td class="time-col">Monday</td><td>Clean bathrooms &amp; toilets. Change bedsheets &amp; pillow covers.<span class="task-malay">Bersihkan kamar mandi &amp; toilet. Ganti sprei &amp; sarung bantal.</span></td></tr>
           <tr><td class="time-col">Wednesday</td><td>Wipe down fridge &amp; oven inside.<span class="task-malay">Lap bagian dalam kulkas &amp; oven.</span></td></tr>
@@ -624,7 +277,6 @@
         </tbody>
       </table>
     </div>
-
     <div class="footer-card">
       <p>📌 <strong>When in doubt about your tasks for the day, please ask Sir or Ma'am.</strong><br/>
       <em>Jika ragu tentang tugas hari itu, silakan tanya Sir atau Ma'am.</em></p>
@@ -633,14 +285,271 @@
 
 </main>
 
-<script>
-  function showTab(name) {
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + name).classList.add('active');
-    event.target.classList.add('active');
-  }
-</script>
+<!-- RECIPE MODAL -->
+<div class="overlay" id="rec-modal">
+  <div class="modal">
+    <h3 id="rec-modal-title">Add New Recipe</h3>
+    <label>Meal Name (English)</label>
+    <input id="r-name" type="text" placeholder="e.g. Fried Rice" />
+    <label>Bahasa Indonesia</label>
+    <input id="r-indo" type="text" placeholder="mis. Nasi Goreng" />
+    <label>Category · Kategori</label>
+    <select id="r-cat">
+      <option value="breakfast">🌅 Breakfast · Sarapan</option>
+      <option value="lunch">☀️ Lunch · Makan Siang</option>
+      <option value="dinner">🌙 Dinner · Makan Malam</option>
+    </select>
+    <label>Tags</label>
+    <div class="tag-picker">
+      <button type="button" class="ttog" data-tag="easy">Easy</button>
+      <button type="button" class="ttog" data-tag="healthy">Healthy</button>
+      <button type="button" class="ttog" data-tag="quick">Quick</button>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-del" id="rec-del-btn" style="display:none" onclick="deleteRecipe()">🗑 Delete</button>
+      <button class="btn-cancel" onclick="closeRecModal()">Cancel</button>
+      <button class="btn-save" onclick="saveRecipe()">Save</button>
+    </div>
+  </div>
+</div>
 
+<!-- SCHEDULE EDIT MODAL -->
+<div class="overlay" id="sched-modal">
+  <div class="modal">
+    <h3>Edit Task · Edit Tugas</h3>
+    <label>Time · Waktu</label>
+    <input id="s-time" type="text" placeholder="e.g. 6:00 AM" />
+    <label>Task (English)</label>
+    <input id="s-task" type="text" placeholder="e.g. Wake up, freshen up." />
+    <label>Bahasa Indonesia</label>
+    <input id="s-indo" type="text" placeholder="mis. Bangun, bersiap diri." />
+    <div class="modal-foot">
+      <button class="btn-cancel" onclick="closeSchedModal()">Cancel</button>
+      <button class="btn-save" onclick="saveSchedEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DEFAULT DATA ──────────────────────────────
+const DEF_SCHED = [
+  {time:"6:00 AM",  en:"Wake up, freshen up.",                       id:"Bangun, bersiap diri."},
+  {time:"6:30 AM",  en:"Prepare breakfast for the family.",           id:"Siapkan sarapan untuk keluarga."},
+  {time:"7:30 AM",  en:"Wash dishes, clean kitchen, wipe counters.",  id:"Cuci piring, bersihkan dapur, lap meja dapur."},
+  {time:"8:00 AM",  en:"Do laundry (wash & hang clothes).",           id:"Cuci pakaian & jemur."},
+  {time:"9:00 AM",  en:"Sweep and mop all floors.",                   id:"Sapu dan pel semua lantai."},
+  {time:"10:00 AM", en:"Wipe surfaces, tidy common areas.",           id:"Lap permukaan, rapikan area umum."},
+  {time:"12:00 PM", en:"Prepare and serve lunch.",                    id:"Siapkan dan hidangkan makan siang."},
+  {time:"1:00 PM",  en:"Wash up, rest break.",                        id:"Cuci piring, istirahat."},
+  {time:"2:30 PM",  en:"Ironing clothes, fold and keep laundry.",     id:"Setrika baju, lipat dan simpan pakaian."},
+  {time:"4:00 PM",  en:"Grocery run if needed (with permission).",    id:"Belanja kebutuhan jika perlu (dengan izin)."},
+  {time:"5:30 PM",  en:"Prepare and cook dinner.",                    id:"Siapkan dan masak makan malam."},
+  {time:"7:00 PM",  en:"Serve dinner, cut fruits after meal.",        id:"Hidangkan makan malam, potong buah setelah makan."},
+  {time:"8:00 PM",  en:"Wash dishes, clean kitchen, wipe stove.",     id:"Cuci piring, bersihkan dapur, lap kompor."},
+  {time:"9:00 PM",  en:"Personal time / rest.",                       id:"Waktu pribadi / istirahat."},
+  {time:"10:30 PM", en:"Lights out.",                                 id:"Tidur."},
+];
+
+const DEF_RECIPES = [
+  {id:'r1', cat:'breakfast', name:'Jam & Bread',                        indo:'Roti dengan Selai',                     tags:['easy','quick']},
+  {id:'r2', cat:'breakfast', name:'Yoghurt with Fruit',                 indo:'Yogurt dengan Buah',                    tags:['easy','healthy']},
+  {id:'r3', cat:'breakfast', name:'Soft-Boiled Eggs & Toast',           indo:'Telur Setengah Matang & Roti',          tags:['easy','quick']},
+  {id:'r4', cat:'breakfast', name:'Sausage & Fried Eggs',               indo:'Sosis & Telur Goreng',                  tags:['easy','quick']},
+  {id:'r5', cat:'lunch',     name:'Chicken Rice (Steamed)',             indo:'Nasi Ayam (Kukus)',                     tags:['healthy','easy']},
+  {id:'r6', cat:'lunch',     name:'Fried Rice with Vegetables',         indo:'Nasi Goreng dengan Sayuran',            tags:['easy','quick']},
+  {id:'r7', cat:'lunch',     name:'Bee Hoon Soup',                      indo:'Sup Bihun',                             tags:['healthy','easy']},
+  {id:'r8', cat:'lunch',     name:'Pan-Fried Fish with Rice',           indo:'Ikan Goreng dengan Nasi',               tags:['healthy']},
+  {id:'r9', cat:'dinner',    name:'Steamed Fish + Stir-fry Veg + Tofu Soup', indo:'Ikan Kukus + Sayur Tumis + Sup Tahu', tags:['healthy']},
+  {id:'r10',cat:'dinner',    name:'Chicken Stew + Broccoli + Clear Soup',    indo:'Semur Ayam + Brokoli + Sup Bening',   tags:['healthy','easy']},
+  {id:'r11',cat:'dinner',    name:'Pasta + Broccoli + Beef / Mushroom',      indo:'Pasta + Brokoli + Daging Sapi / Jamur',tags:['easy','healthy']},
+  {id:'r12',cat:'dinner',    name:'Baked Salmon + Vegetables + Miso Soup',   indo:'Salmon Panggang + Sayuran + Sup Miso', tags:['healthy']},
+];
+
+// ── STATE ─────────────────────────────────────
+let schedule = JSON.parse(localStorage.getItem('hg_sched') || 'null') || DEF_SCHED.map(r=>({...r}));
+let recipes  = JSON.parse(localStorage.getItem('hg_recs')  || 'null') || DEF_RECIPES.map(r=>({...r}));
+let ticks    = JSON.parse(localStorage.getItem('hg_ticks') || '{}');
+
+const TODAY = new Date().toDateString();
+if (localStorage.getItem('hg_tick_day') !== TODAY) {
+  ticks = {};
+  localStorage.setItem('hg_ticks', '{}');
+  localStorage.setItem('hg_tick_day', TODAY);
+}
+
+let editSchedIdx = null;
+let editRecId    = null;
+
+// ── TABS ──────────────────────────────────────
+function showTab(name, btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── SCHEDULE ─────────────────────────────────
+function renderSchedule() {
+  const tbody = document.getElementById('sched-body');
+  tbody.innerHTML = '';
+  schedule.forEach((row, i) => {
+    const done = !!ticks[i];
+    const tr = document.createElement('tr');
+    tr.className = 'tick-row' + (done ? ' done' : '');
+    tr.innerHTML = `
+      <td class="tick-cell"><div class="tick-box"></div></td>
+      <td class="time-col">${x(row.time)}</td>
+      <td>
+        <div class="task-row-inner">
+          <div class="task-row-text">
+            <span class="task-en">${x(row.en)}</span>
+            <span class="task-malay">${x(row.id)}</span>
+          </div>
+          <button class="edit-row-btn" title="Edit task" onclick="openSchedModal(${i},event)">✏️ edit</button>
+        </div>
+      </td>`;
+    tr.addEventListener('click', e => {
+      if (e.target.closest('.edit-row-btn')) return;
+      ticks[i] = !ticks[i];
+      if (!ticks[i]) delete ticks[i];
+      localStorage.setItem('hg_ticks', JSON.stringify(ticks));
+      tr.classList.toggle('done', !!ticks[i]);
+      updateProgress();
+    });
+    tbody.appendChild(tr);
+  });
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = schedule.length;
+  const done  = Object.values(ticks).filter(Boolean).length;
+  document.getElementById('prog-fill').style.width = (done/total*100)+'%';
+  document.getElementById('prog-text').textContent = `${done} / ${total} tasks done today · tugas selesai`;
+}
+
+function resetTicks() {
+  ticks = {};
+  localStorage.setItem('hg_ticks', '{}');
+  renderSchedule();
+}
+
+// ── SCHEDULE MODAL ────────────────────────────
+function openSchedModal(idx, e) {
+  e && e.stopPropagation();
+  editSchedIdx = idx;
+  const r = schedule[idx];
+  document.getElementById('s-time').value = r.time;
+  document.getElementById('s-task').value = r.en;
+  document.getElementById('s-indo').value = r.id;
+  document.getElementById('sched-modal').classList.add('open');
+}
+function closeSchedModal() {
+  document.getElementById('sched-modal').classList.remove('open');
+  editSchedIdx = null;
+}
+function saveSchedEdit() {
+  const time = document.getElementById('s-time').value.trim();
+  const en   = document.getElementById('s-task').value.trim();
+  const id   = document.getElementById('s-indo').value.trim();
+  if (!time || !en) return;
+  schedule[editSchedIdx] = {time, en, id};
+  localStorage.setItem('hg_sched', JSON.stringify(schedule));
+  closeSchedModal();
+  renderSchedule();
+}
+
+// ── RECIPES ──────────────────────────────────
+function renderRecipes() {
+  ['breakfast','lunch','dinner'].forEach(cat => {
+    const grid = document.getElementById('grid-'+cat);
+    grid.innerHTML = '';
+    recipes.filter(r=>r.cat===cat).forEach(r => {
+      const d = document.createElement('div');
+      d.className = 'meal-card';
+      d.innerHTML = `
+        <div class="card-acts">
+          <button class="ibtn e" onclick="openRecModal('${r.id}')" title="Edit">✏️</button>
+          <button class="ibtn d" onclick="doDeleteRec('${r.id}')" title="Delete">🗑</button>
+        </div>
+        <div class="meal-name">${x(r.name)}</div>
+        <div class="meal-indo">${x(r.indo)}</div>
+        <div class="meal-tags">${r.tags.map(t=>`<span class="tag ${t}">${t[0].toUpperCase()+t.slice(1)}</span>`).join('')}</div>`;
+      grid.appendChild(d);
+    });
+    // Add card
+    const add = document.createElement('div');
+    add.className = 'add-card';
+    add.innerHTML = `<div class="plus">+</div><span>Add new recipe</span><em>Tambah resep baru</em>`;
+    add.onclick = () => openRecModal(null, cat);
+    grid.appendChild(add);
+  });
+}
+
+// ── RECIPE MODAL ─────────────────────────────
+function openRecModal(id, defaultCat) {
+  editRecId = id;
+  document.querySelectorAll('.ttog').forEach(b=>b.classList.remove('on'));
+  if (id) {
+    const r = recipes.find(x=>x.id===id);
+    document.getElementById('rec-modal-title').textContent = 'Edit Recipe · Edit Resep';
+    document.getElementById('r-name').value = r.name;
+    document.getElementById('r-indo').value = r.indo;
+    document.getElementById('r-cat').value  = r.cat;
+    r.tags.forEach(t => document.querySelector(`.ttog[data-tag="${t}"]`)?.classList.add('on'));
+    document.getElementById('rec-del-btn').style.display = 'inline-block';
+  } else {
+    document.getElementById('rec-modal-title').textContent = 'Add New Recipe · Tambah Resep';
+    document.getElementById('r-name').value = '';
+    document.getElementById('r-indo').value = '';
+    document.getElementById('r-cat').value  = defaultCat || 'breakfast';
+    document.getElementById('rec-del-btn').style.display = 'none';
+  }
+  document.getElementById('rec-modal').classList.add('open');
+}
+function closeRecModal() {
+  document.getElementById('rec-modal').classList.remove('open');
+  editRecId = null;
+}
+function saveRecipe() {
+  const name = document.getElementById('r-name').value.trim();
+  const indo = document.getElementById('r-indo').value.trim();
+  const cat  = document.getElementById('r-cat').value;
+  const tags = [...document.querySelectorAll('.ttog.on')].map(b=>b.dataset.tag);
+  if (!name) return;
+  if (editRecId) {
+    const r = recipes.find(x=>x.id===editRecId);
+    Object.assign(r, {name,indo,cat,tags});
+  } else {
+    recipes.push({id:'r'+Date.now(), cat, name, indo, tags});
+  }
+  localStorage.setItem('hg_recs', JSON.stringify(recipes));
+  closeRecModal();
+  renderRecipes();
+}
+function deleteRecipe() {
+  doDeleteRec(editRecId);
+  closeRecModal();
+}
+function doDeleteRec(id) {
+  recipes = recipes.filter(r=>r.id!==id);
+  localStorage.setItem('hg_recs', JSON.stringify(recipes));
+  renderRecipes();
+}
+
+// Tag toggles
+document.querySelectorAll('.ttog').forEach(b => b.onclick = () => b.classList.toggle('on'));
+
+// Close on overlay click
+document.getElementById('rec-modal').onclick   = e => { if(e.target===e.currentTarget) closeRecModal(); };
+document.getElementById('sched-modal').onclick  = e => { if(e.target===e.currentTarget) closeSchedModal(); };
+
+// ── UTIL ──────────────────────────────────────
+function x(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ── INIT ──────────────────────────────────────
+renderSchedule();
+renderRecipes();
+</script>
 </body>
 </html>
