@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Home Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf8f4;
+      --white: #ffffff;
+      --sand: #f0ece3;
+      --warm-dark: #2b2520;
+      --mid: #6b5f55;
+      --light: #a89a8e;
+      --accent: #c0845a;
+      --accent-light: #f5e6d8;
+      --green: #5a7a5c;
+      --green-light: #e8f0e8;
+      --red: #b85c5c;
+      --red-light: #f5e8e8;
+      --border: #e4ddd5;
+      --shadow: 0 2px 12px rgba(43,37,32,0.07);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--warm-dark);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 20px 20px;
+      text-align: center;
+    }
+
+    header .emoji { font-size: 2.4rem; display: block; margin-bottom: 8px; }
+
+    header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      color: var(--warm-dark);
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      font-size: 0.92rem;
+      color: var(--light);
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    /* TABS */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 16px 0;
+      background: var(--white);
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 9px 18px;
+      border: 1.5px solid var(--border);
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      background: var(--sand);
+      color: var(--mid);
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    nav button.active {
+      background: var(--white);
+      color: var(--accent);
+      border-color: var(--border);
+      border-bottom: 2px solid var(--white);
+      margin-bottom: -1px;
+    }
+
+    nav button:hover:not(.active) { background: var(--accent-light); color: var(--accent); }
+
+    /* MAIN */
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 16px 60px;
+    }
+
+    /* SECTION PANELS */
+    .panel { display: none; }
+    .panel.active { display: block; animation: fadeIn 0.25s ease; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* CARDS */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: var(--warm-dark);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* RULE ROWS */
+    .rule {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rule:last-child { border-bottom: none; }
+
+    .rule-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .rule-icon.yes { background: var(--green-light); color: var(--green); }
+    .rule-icon.no { background: var(--red-light); color: var(--red); }
+
+    .rule-text p { font-size: 0.9rem; line-height: 1.5; color: var(--warm-dark); font-weight: 500; }
+    .rule-text span { font-size: 0.82rem; color: var(--mid); font-style: italic; }
+
+    /* NOTICE BANNER */
+    .notice {
+      background: var(--accent-light);
+      border: 1px solid #e8c4a0;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .notice .notice-emoji { font-size: 1.4rem; flex-shrink: 0; }
+    .notice p { font-size: 0.88rem; line-height: 1.55; color: var(--warm-dark); }
+    .notice p strong { font-weight: 600; }
+    .notice p em { color: var(--mid); font-style: italic; }
+
+    /* COLLAPSIBLE */
+    details { margin-bottom: 12px; }
+
+    details summary {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--warm-dark);
+      box-shadow: var(--shadow);
+      transition: background 0.15s;
+    }
+
+    details summary:hover { background: var(--sand); }
+    details summary::after { content: '▼'; font-size: 0.7rem; color: var(--light); transition: transform 0.2s; }
+    details[open] summary::after { transform: rotate(180deg); }
+    details[open] summary { border-radius: 10px 10px 0 0; border-bottom: 1px solid var(--border); }
+
+    details .details-body {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+      padding: 6px 0;
+    }
+
+    details .summary-sub { font-size: 0.78rem; color: var(--mid); font-weight: 400; font-style: italic; }
+
+    /* MEAL GRID */
+    .meal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .meal-card {
+      background: var(--sand);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .meal-card .meal-name { font-weight: 600; font-size: 0.9rem; color: var(--warm-dark); margin-bottom: 4px; }
+    .meal-card .meal-malay { font-size: 0.8rem; color: var(--mid); font-style: italic; margin-bottom: 8px; }
+    .meal-card .meal-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .tag {
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .tag.easy { background: var(--green-light); color: var(--green); }
+    .tag.healthy { background: #e8f0f5; color: #4a7a8a; }
+    .tag.quick { background: #f5f0e8; color: #8a7a4a; }
+    .tag.allergy { background: var(--red-light); color: var(--red); }
+
+    /* TIMETABLE */
+    .timetable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .timetable th {
+      background: var(--sand);
+      color: var(--mid);
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 2px solid var(--border);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .timetable td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--warm-dark);
+    }
+
+    .timetable tr:last-child td { border-bottom: none; }
+    .timetable tr:hover td { background: var(--sand); }
+
+    .timetable .time-col {
+      font-weight: 600;
+      color: var(--accent);
+      white-space: nowrap;
+      width: 110px;
+    }
+
+    .timetable .task-malay { display: block; font-size: 0.78rem; color: var(--mid); font-style: italic; margin-top: 2px; }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--light);
+      margin: 24px 0 10px;
+    }
+
+    /* FOOTER BANNER */
+    .footer-card {
+      background: var(--accent);
+      color: white;
+      border-radius: 14px;
+      padding: 22px;
+      text-align: center;
+      margin-top: 28px;
+    }
+
+    .footer-card p { font-size: 0.9rem; line-height: 1.6; }
+    .footer-card em { opacity: 0.85; font-style: italic; }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="emoji">🏠</span>
+  <h1>Our Home Guide</h1>
+  <p>Panduan Rumah Kita</p>
+</header>
+
+<nav>
+  <button class="active" onclick="showTab('rules')">📜 House Rules</button>
+  <button onclick="showTab('meals')">🍳 Recipes</button>
+  <button onclick="showTab('timetable')">📅 Timetable</button>
+</nav>
+
+<main>
+
+  <!-- ===== HOUSE RULES ===== -->
+  <div class="panel active" id="tab-rules">
+
+    <div class="notice">
+      <span class="notice-emoji">🤝</span>
+      <p><strong>We hope to build a good and respectful working relationship together.</strong><br/>
+      <em>Kami berharap dapat membangun hubungan kerja yang baik dan saling menghormati bersama.</em></p>
+    </div>
+
+    <details open>
+      <summary>
+        <span>🗣️ Honesty &amp; Communication <span class="summary-sub">· Kejujuran &amp; Komunikasi</span></span>
+      </summary>
+      <div class="details-body">
+        <div class="rule">
+          <div class="rule-icon yes">✓</div>
+          <div class="rule-text"><p>If you are unsure about anything, please always ask.</p><span>Jika tidak yakin tentang sesuatu, silakan selalu bertanya.</span></div>
+        </div>
+        <div class="rule">
+          <div class="rule-icon yes">✓</div>
+          <div class="rule-text"><p>Tell us <strong>immediately</strong> if anything is broken or damaged.</p><span>Beritahu kami segera jika ada sesuatu yang rusak atau pecah.</span></div>
+        </div>
+        <div class="rule">
+          <div class="rule-icon no">✕</div>
+          <div class="rule-text"><p><strong>No</strong> lying, stealing, or borrowing money without permission.</p><span>Dilarang berbohong, mencuri, atau meminjam uang tanpa izin.</span></div>
+        </div>
+        <div class="rule">
+          <div class="rule-icon no">✕</div>
+          <div class="rule-text"><p>Do <strong>not</strong> use Sir / Ma'am's belongings without permission.</p><span>Jangan gunakan barang-barang Sir / Ma'am tanpa izin.</span></div>
+        </div>
+        <div class="rule">
+          <div class="rule-icon yes">✓</div>
+          <div class="rule-text"><p>If you feel <strong>unwell</strong>, please tell us immediately.</p><span>Jika merasa tidak sehat, segera beritahu kami.</span></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span>🚪 Movement &amp; Visitors <span class="summary-sub">· Pergerakan &amp; Tamu</span></span>
+      </summary>
+      <div class="details-body">
+        <div class="rule">
+          <div class="rule-icon no">✕</div>
+          <div class="rule-text"><p>Do <strong>not</strong> leave the house without permission. Inform us before going out.</p><span>Jangan keluar rumah tanpa izin. Beritahu kami sebelum keluar.</span></div>
+        </div>
+        <div class="rule">
+          <div class="rule-icon no">✕</div>
+          <div class="rule-text"><p><strong>No visitors</strong> are allowed at the house.</p><span>Tidak ada tamu yang diizinkan masuk ke rumah.</span></div>
+        </div>
+        <div class="rule">
+          <div class="rule-icon yes">✓</div>
+          <div class="rule-text"><p>Follow all <strong>work permit rules</strong> at all times.</p><span>Patuhi semua peraturan izin kerja setiap saat.</span></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span>📱 Phone &amp; Privacy <span class="summary-sub">· Telepon &amp; Privasi</span></span>
+      </summary>
+      <div class="details-body">
+        <div class="rule">
+          <div class="rule-icon yes">✓</div>
+          <div class="rule-text"><p>Use your personal phone during <strong>rest time only</strong> (except emergencies).</p><span>Gunakan telepon pribadi hanya saat waktu istirahat (kecuali darurat).</span></div>
+        </div>
+        <div class="rule">
+          <div class="rule-icon no">✕</div>
+          <div class="rule-text"><p>Do <strong>not</strong> share our home address with anyone.</p><span>Jangan bagikan alamat rumah kami kepada siapa pun.</span></div>
+        </div>
+        <div class="rule">
+          <div class="rule-icon no">✕</div>
+          <div class="rule-text"><p>Do <strong>not</strong> post photos or videos of our home or family on social media.</p><span>Jangan posting foto atau video rumah atau keluarga kami di media sosial.</span></div>
+        </div>
+        <div class="rule">
+          <div class="rule-icon yes">✓</div>
+          <div class="rule-text"><p>Family <strong>privacy and safety</strong> is the most important.</p><span>Privasi dan keselamatan keluarga adalah yang paling utama.</span></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span>🧼 Hygiene <span class="summary-sub">· Kebersihan Diri</span></span>
+      </summary>
+      <div class="details-body">
+        <div class="rule">
+          <div class="rule-icon yes">✓</div>
+          <div class="rule-text"><p>Always <strong>wash your hands with soap</strong> before handling food.</p><span>Selalu cuci tangan dengan sabun sebelum menangani makanan.</span></div>
+        </div>
+        <div class="rule">
+          <div class="rule-icon yes">✓</div>
+          <div class="rule-text"><p>Bathe and brush your teeth in the <strong>morning and at night</strong>.</p><span>Mandi dan sikat gigi di pagi dan malam hari.</span></div>
+        </div>
+        <div class="rule">
+          <div class="rule-icon yes">✓</div>
+          <div class="rule-text"><p>Keep your <strong>nails short</strong> and <strong>tie your hair</strong> when working.</p><span>Jaga kuku tetap pendek dan ikat rambut saat bekerja.</span></div>
+        </div>
+        <div class="rule">
+          <div class="rule-icon yes">✓</div>
+          <div class="rule-text"><p>When you return from outside, <strong>wash your hands and feet</strong> first.</p><span>Saat pulang dari luar, cuci tangan dan kaki terlebih dahulu.</span></div>
+        </div>
+      </div>
+    </details>
+
+    <div class="footer-card">
+      <p>💛 <strong>If you follow these rules well, we will take good care of you too.</strong><br/>
+      <em>Jika kamu mengikuti peraturan ini dengan baik, kami pun akan menjaga kamu dengan baik.</em></p>
+    </div>
+  </div>
+
+  <!-- ===== RECIPES ===== -->
+  <div class="panel" id="tab-meals">
+
+    <div class="notice">
+      <span class="notice-emoji">⚠️</span>
+      <p><strong>Important: Nut Allergy in the household. Do NOT use any nuts, nut oils, or nut-based sauces (e.g. peanut sauce, satay sauce).</strong><br/>
+      <em>Penting: Ada alergi kacang dalam keluarga. JANGAN gunakan kacang apa pun, minyak kacang, atau saus berbahan kacang (mis. saus kacang, saus satay).</em></p>
+    </div>
+
+    <div class="notice" style="background: var(--green-light); border-color: #b8d4b8;">
+      <span class="notice-emoji">🥗</span>
+      <p><strong>General preference: Light, healthy, not too oily or spicy. Full dinner = 1 Meat/Fish + 1 Vegetable + 1 Soup.</strong><br/>
+      <em>Preferensi umum: Ringan, sehat, tidak terlalu berminyak atau pedas. Makan malam lengkap = 1 Daging/Ikan + 1 Sayuran + 1 Sup.</em></p>
+    </div>
+
+    <p class="section-label">🌅 Breakfast Ideas · Ide Sarapan</p>
+    <div class="meal-grid">
+      <div class="meal-card">
+        <div class="meal-name">Jam &amp; Bread</div>
+        <div class="meal-malay">Roti dengan Selai</div>
+        <div class="meal-tags"><span class="tag easy">Easy</span><span class="tag quick">Quick</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-name">Yoghurt with Fruit</div>
+        <div class="meal-malay">Yogurt dengan Buah</div>
+        <div class="meal-tags"><span class="tag easy">Easy</span><span class="tag healthy">Healthy</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-name">Soft-Boiled Eggs &amp; Toast</div>
+        <div class="meal-malay">Telur Setengah Matang &amp; Roti</div>
+        <div class="meal-tags"><span class="tag easy">Easy</span><span class="tag quick">Quick</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-name">Sausage &amp; Fried Eggs</div>
+        <div class="meal-malay">Sosis &amp; Telur Goreng</div>
+        <div class="meal-tags"><span class="tag easy">Easy</span><span class="tag quick">Quick</span></div>
+      </div>
+    </div>
+
+    <p class="section-label">☀️ Lunch Ideas · Ide Makan Siang</p>
+    <div class="meal-grid">
+      <div class="meal-card">
+        <div class="meal-name">Chicken Rice (Steamed)</div>
+        <div class="meal-malay">Nasi Ayam (Kukus)</div>
+        <div class="meal-tags"><span class="tag healthy">Healthy</span><span class="tag easy">Easy</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-name">Fried Rice with Vegetables</div>
+        <div class="meal-malay">Nasi Goreng dengan Sayuran</div>
+        <div class="meal-tags"><span class="tag easy">Easy</span><span class="tag quick">Quick</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-name">Bee Hoon Soup</div>
+        <div class="meal-malay">Sup Bihun</div>
+        <div class="meal-tags"><span class="tag healthy">Healthy</span><span class="tag easy">Easy</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-name">Pan-Fried Fish with Rice</div>
+        <div class="meal-malay">Ikan Goreng dengan Nasi</div>
+        <div class="meal-tags"><span class="tag healthy">Healthy</span></div>
+      </div>
+    </div>
+
+    <p class="section-label">🌙 Dinner Ideas · Ide Makan Malam</p>
+    <div class="meal-grid">
+      <div class="meal-card">
+        <div class="meal-name">Steamed Fish + Stir-fry Veg + Tofu Soup</div>
+        <div class="meal-malay">Ikan Kukus + Sayur Tumis + Sup Tahu</div>
+        <div class="meal-tags"><span class="tag healthy">Healthy</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-name">Chicken Stew + Broccoli + Clear Soup</div>
+        <div class="meal-malay">Semur Ayam + Brokoli + Sup Bening</div>
+        <div class="meal-tags"><span class="tag healthy">Healthy</span><span class="tag easy">Easy</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-name">Pasta + Broccoli + Beef / Mushroom</div>
+        <div class="meal-malay">Pasta + Brokoli + Daging Sapi / Jamur</div>
+        <div class="meal-tags"><span class="tag easy">Easy</span><span class="tag healthy">Healthy</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-name">Baked Salmon + Vegetables + Miso Soup</div>
+        <div class="meal-malay">Salmon Panggang + Sayuran + Sup Miso</div>
+        <div class="meal-tags"><span class="tag healthy">Healthy</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+      <div class="card-title">🍊 Remember · Ingat</div>
+      <div class="rule">
+        <div class="rule-icon yes">✓</div>
+        <div class="rule-text"><p>Cut fruits after dinner every night.</p><span>Potong buah setelah makan malam setiap malam.</span></div>
+      </div>
+      <div class="rule">
+        <div class="rule-icon no">✕</div>
+        <div class="rule-text"><p><strong>No nuts or nut-based ingredients</strong> in any meal.</p><span>Tidak ada kacang atau bahan berbahan kacang dalam makanan apa pun.</span></div>
+      </div>
+      <div class="rule">
+        <div class="rule-icon yes">✓</div>
+        <div class="rule-text"><p>Keep food light — not too oily or spicy.</p><span>Buat masakan yang ringan — tidak terlalu berminyak atau pedas.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TIMETABLE ===== -->
+  <div class="panel" id="tab-timetable">
+
+    <div class="notice">
+      <span class="notice-emoji">📋</span>
+      <p><strong>This is a general daily schedule. Sir / Ma'am will update you if anything changes on the day.</strong><br/>
+      <em>Ini adalah jadwal harian umum. Sir / Ma'am akan memberi tahu kamu jika ada perubahan pada hari tersebut.</em></p>
+    </div>
+
+    <p class="section-label">📅 Weekday Schedule (Mon–Fri) · Jadwal Hari Kerja</p>
+    <div class="card" style="padding: 0; overflow: hidden;">
+      <table class="timetable">
+        <thead>
+          <tr>
+            <th>Time · Waktu</th>
+            <th>Task · Tugas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="time-col">6:00 AM</td>
+            <td>Wake up, freshen up.<span class="task-malay">Bangun, bersiap diri.</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">6:30 AM</td>
+            <td>Prepare breakfast for the family.<span class="task-malay">Siapkan sarapan untuk keluarga.</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">7:30 AM</td>
+            <td>Wash dishes, clean kitchen, wipe counters.<span class="task-malay">Cuci piring, bersihkan dapur, lap meja dapur.</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">8:00 AM</td>
+            <td>Do laundry (wash &amp; hang clothes).<span class="task-malay">Cuci pakaian &amp; jemur.</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">9:00 AM</td>
+            <td>Sweep and mop all floors.<span class="task-malay">Sapu dan pel semua lantai.</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">10:00 AM</td>
+            <td>Wipe surfaces, tidy common areas.<span class="task-malay">Lap permukaan, rapikan area umum.</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">12:00 PM</td>
+            <td>Prepare and serve lunch.<span class="task-malay">Siapkan dan hidangkan makan siang.</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">1:00 PM</td>
+            <td>Wash up, rest break.<span class="task-malay">Cuci piring, istirahat.</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">2:30 PM</td>
+            <td>Ironing clothes, fold and keep laundry.<span class="task-malay">Setrika baju, lipat dan simpan pakaian.</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">4:00 PM</td>
+            <td>Grocery run if needed (with permission).<span class="task-malay">Belanja kebutuhan jika perlu (dengan izin).</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">5:30 PM</td>
+            <td>Prepare and cook dinner.<span class="task-malay">Siapkan dan masak makan malam.</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">7:00 PM</td>
+            <td>Serve dinner, cut fruits after meal.<span class="task-malay">Hidangkan makan malam, potong buah setelah makan.</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">8:00 PM</td>
+            <td>Wash dishes, clean kitchen, wipe stove.<span class="task-malay">Cuci piring, bersihkan dapur, lap kompor.</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">9:00 PM</td>
+            <td>Personal time / rest.<span class="task-malay">Waktu pribadi / istirahat.</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">10:30 PM</td>
+            <td>Lights out.<span class="task-malay">Tidur.</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="section-label">🛁 Weekly Deep-Clean · Kebersihan Mingguan</p>
+    <div class="card" style="padding: 0; overflow: hidden;">
+      <table class="timetable">
+        <thead>
+          <tr>
+            <th>Day · Hari</th>
+            <th>Extra Task · Tugas Tambahan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="time-col">Monday</td><td>Clean bathrooms &amp; toilets. Change bedsheets &amp; pillow covers.<span class="task-malay">Bersihkan kamar mandi &amp; toilet. Ganti sprei &amp; sarung bantal.</span></td></tr>
+          <tr><td class="time-col">Wednesday</td><td>Wipe down fridge &amp; oven inside.<span class="task-malay">Lap bagian dalam kulkas &amp; oven.</span></td></tr>
+          <tr><td class="time-col">Friday</td><td>Vacuum sofas, wipe windows &amp; door frames.<span class="task-malay">Vakum sofa, lap jendela &amp; bingkai pintu.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer-card">
+      <p>📌 <strong>When in doubt about your tasks for the day, please ask Sir or Ma'am.</strong><br/>
+      <em>Jika ragu tentang tugas hari itu, silakan tanya Sir atau Ma'am.</em></p>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  function showTab(name) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
